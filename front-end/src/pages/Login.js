@@ -9,6 +9,7 @@ const minLength = 6;
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validate, setvalidate] = useState(false);
 
   const loginValidate = !(password.length >= minLength && EmailValidator.validate(email));
   const history = useHistory();
@@ -18,10 +19,16 @@ function Login() {
     event.preventDefault();
     const URL = 'http://localhost:3001/login';
     const login = { email, password };
-    await axios.post(URL, login);
-    dispatch(user(email));
-    dispatch(reduxPswrd(password));
-    history.push('/sucess');
+    try {
+      const { data } = await axios.post(URL, login);
+      console.log(data);
+      dispatch(user(email));
+      dispatch(reduxPswrd(password));
+      history.push('/customer/products');
+    } catch (err) {
+      setvalidate(true);
+      console.log(err);
+    }
   };
 
   return (
@@ -54,12 +61,12 @@ function Login() {
       >
         Ainda não tenho conta
       </button>
-      {/* { loginValidate
+      { validate
         && (
-          <p data-tesid="common_login__element-invalid-email">
+          <p data-testid="common_login__element-invalid-email">
             Dados inválidos
           </p>
-        ) } */}
+        ) }
     </div>
   );
 }
