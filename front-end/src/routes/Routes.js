@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 
@@ -10,7 +10,10 @@ function Routes() {
         <Route
           exact
           path="/"
-        />
+        >
+          <Redirect to="login" />
+        </Route>
+
         <Route
           path="/login"
           render={ (props) => <Login { ...props } /> }
