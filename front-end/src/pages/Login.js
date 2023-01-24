@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { Link, useHistory, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -55,12 +55,14 @@ function Login() {
       >
         LOGIN
       </button>
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-      >
-        Ainda não tenho conta
-      </button>
+      <Link to="/register">
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+        >
+          Ainda não tenho conta
+        </button>
+      </Link>
       { validate
         && (
           <p data-testid="common_login__element-invalid-email">

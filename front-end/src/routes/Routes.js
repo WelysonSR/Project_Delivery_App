@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Login from '../pages/Login';
+import Register from '../pages/Register';
 
 function Routes() {
   const history = useHistory();
@@ -15,6 +16,10 @@ function Routes() {
         <Route
           path="/login"
           render={ (props) => <Login { ...props } /> }
+        />
+        <Route
+          path="/register"
+          component={ Register }
         />
       </Switch>
     </div>
