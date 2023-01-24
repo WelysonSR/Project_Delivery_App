@@ -17,7 +17,7 @@ function Login() {
 
   const handleClick = async (event) => {
     event.preventDefault();
-    const URL = 'http://localhost:3001/login';
+    const URL = 'http://localhost:3001/user/login';
     const login = { email, password };
     try {
       const { data } = await axios.post(URL, login);
