@@ -93,7 +93,7 @@ export default function Register() {
         </button>
         { validate
         && (
-          <p data-testid="common_register___element-invalid_register">
+          <p data-testid="common_register__element-invalid_register">
             Já existe este cadastro
           </p>
         ) }
