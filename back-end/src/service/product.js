@@ -1,8 +1,6 @@
 const Product = require('../database/models/product');
 
-const getAllProducts = () => {
-  return Product.findAll();
-};
+const getAllProducts = () => Product.findAll();
 
 // teste
 
