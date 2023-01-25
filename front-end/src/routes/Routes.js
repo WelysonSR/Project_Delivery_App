@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import Orders from '../pages/Orders';
 
 function Routes() {
   return (
@@ -21,6 +22,10 @@ function Routes() {
         <Route
           path="/register"
           component={ Register }
+        />
+        <Route
+          path="/customer/orders"
+          component={ Orders }
         />
       </Switch>
     </div>
