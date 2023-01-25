@@ -1,10 +1,12 @@
 import React from 'react';
 import Navbar from '../components/NavBar';
+import OrderTable from '../components/OrderTable';
 
 export default function Checkout() {
   return (
     <main>
       <Navbar />
+      <OrderTable />
       <form>
         <p data-testid="customer_checkout__element-order-total-price">
           Total:
