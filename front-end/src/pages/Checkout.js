@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/NavBar';
 import OrderTable from '../components/OrderTable';
 
+const testidSeller = 'customer_checkout__select-seller';
+
 export default function Checkout() {
+  const { seller, setSeller } = useState('');
+
+  const history = useHistory();
+
+  const selectSeller = () => {
+    const item = testidSeller.map((e, index) => (
+      <option
+        key={ index }
+        value={ `${e.id}` }
+      >
+        {e.name}
+      </option>
+    ));
+    return item;
+  };
+
+  const redirectToCustomerOrders = (id) => {
+    url = `/customers/orders${id}`;
+    history.push(url);
+  };
+
+  const saleStatus = () => {
+    const item = {
+      status: 'Pendente',
+    };
+    redirectToCustomerOrders(item);
+  };
+
   return (
     <main>
       <Navbar />
@@ -19,8 +49,10 @@ export default function Checkout() {
           <select
             id="vendedora"
             data-testid="customer_checkout__select-seller"
+            value={ seller }
+            onChange={ ({ target }) => setSeller(target.value) }
           >
-            <option> Fulana Pereira </option>
+            { selectSeller() }
           </select>
         </label>
 
@@ -47,6 +79,7 @@ export default function Checkout() {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ saleStatus }
         >
           FINALIZAR PEDIDO
         </button>
