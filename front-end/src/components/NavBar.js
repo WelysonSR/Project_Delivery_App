@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 
 export default function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
+
+  const removeFromLocalStorage = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('carrinho');
+  };
   return (
     <nav>
       <div>
@@ -35,8 +40,7 @@ export default function NavBar() {
         <button
           type="button"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => localStorage.removeItem('user')
-          && localStorage.removeItem('carinho') }
+          onClick={ () => removeFromLocalStorage() }
         >
           Sair
         </button>

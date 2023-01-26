@@ -36,7 +36,14 @@ const register = async (email, password, name) => {
   };
 };
 
+const getAllUser = async () => {
+  const users = await user.findAll();
+  return users;
+  };
+  
+
 module.exports = {
   login,
   register,
+  getAllUser,
 };

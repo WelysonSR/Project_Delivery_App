@@ -13,7 +13,18 @@ const register = async (req, res) => {
   res.status(statusHttp.CREATED).json(newUser);
 };
 
+const getAllUser = async (_req, res) => {
+  try {
+    const users = await userService.getAllUser();
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
+
 module.exports = {
   login,
   register,
+  getAllUser,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Navbar from '../components/NavBar';
@@ -8,11 +8,27 @@ const testidSeller = 'customer_checkout__select-seller';
 
 export default function Checkout() {
   const { seller, setSeller } = useState('');
+  const [api, setApi] = useState([]);
+
+  const getAxios = async () => {
+    try {
+      const URL = 'http://localhost:3001/user';
+
+      const { data } = await axios.get(URL);
+      setApi(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAxios();
+  }, []);
 
   const history = useHistory();
 
   const selectSeller = () => {
-    const item = testidSeller.map((e, index) => (
+    const item = api.map((e, index) => (
       <option
         key={ index }
         value={ `${e.id}` }
