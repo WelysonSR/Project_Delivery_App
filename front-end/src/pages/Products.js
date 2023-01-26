@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../components/NavBar';
 
 function Products() {
   const [api, setApi] = useState([]);
@@ -81,62 +80,58 @@ function Products() {
   };
 
   return (
-    <>
-      <Navbar />
-
-      <div className="products">
-        {api.map((product) => (
-          <div key={ product.id }>
-            <p data-testid={ `customer_products__element-card-title-${product.id}` }>
-              {product.name}
-            </p>
-            <span>R$ </span>
-            <span data-testid={ `customer_products__element-card-price-${product.id}` }>
-              { (product.price.replace('.', ',')) }
-            </span>
-            <br />
-            <img
-              className="productImg"
-              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-              src={ product.urlImage }
-              alt={ `${product.name} imagem` }
-            />
-            <div>
-              <button
-                data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-                type="button"
-                onClick={ () => changeProduct('-', product.id) }
-              >
-                -
-              </button>
-              <input
-                value={ validate && getQuantity(product.id) }
-                onChange={ (e) => changeProductInput(e.target.value, product.id) }
-                data-testid={ `customer_products__input-card-quantity-${product.id}` }
-              />
-              <button
-                data-testid={ `customer_products__button-card-add-item-${product.id}` }
-                type="button"
-                onClick={ () => changeProduct('+', product.id) }
-              >
-                +
-              </button>
-            </div>
-          </div>
-        ))}
-        <button
-          type="button"
-          data-testid="customer_products__button-cart"
-          onClick={ () => history.push('/customer/checkout') }
-          disabled={ validate && getTotalPrice() === 0.00 }
-        >
-          <p>Ver Carrinho:</p>
-          <p data-testid="customer_products__checkout-bottom-value">
-            {validate && (getTotalPrice()).toFixed(2).replace('.', ',')}
+    <div className="products">
+      {api.map((product) => (
+        <div key={ product.id }>
+          <p data-testid={ `customer_products__element-card-title-${product.id}` }>
+            {product.name}
           </p>
-        </button>
-      </div>
-    </>
+          <span>R$ </span>
+          <span data-testid={ `customer_products__element-card-price-${product.id}` }>
+            { (product.price.replace('.', ',')) }
+          </span>
+          <br />
+          <img
+            className="productImg"
+            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+            src={ product.urlImage }
+            alt={ `${product.name} imagem` }
+          />
+          <div>
+            <button
+              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+              type="button"
+              onClick={ () => changeProduct('-', product.id) }
+            >
+              -
+            </button>
+            <input
+              value={ validate && getQuantity(product.id) }
+              onChange={ (e) => changeProductInput(e.target.value, product.id) }
+              data-testid={ `customer_products__input-card-quantity-${product.id}` }
+            />
+            <button
+              data-testid={ `customer_products__button-card-add-item-${product.id}` }
+              type="button"
+              onClick={ () => changeProduct('+', product.id) }
+            >
+              +
+            </button>
+          </div>
+        </div>
+      ))}
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        onClick={ () => history.push('/customer/checkout') }
+        disabled={ validate && getTotalPrice() === 0.00 }
+      >
+        <p>Ver Carrinho:</p>
+        <p data-testid="customer_products__checkout-bottom-value">
+          {validate && (getTotalPrice()).toFixed(2).replace('.', ',')}
+        </p>
+      </button>
+    </div>
   );
 }
 
