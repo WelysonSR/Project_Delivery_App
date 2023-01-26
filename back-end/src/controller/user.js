@@ -22,7 +22,6 @@ const getAllUser = async (_req, res) => {
   }
 };
 
-
 module.exports = {
   login,
   register,

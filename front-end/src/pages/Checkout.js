@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom';
 import Navbar from '../components/NavBar';
 import OrderTable from '../components/OrderTable';
 
-const testidSeller = 'customer_checkout__select-seller';
-
 export default function Checkout() {
   const { seller, setSeller } = useState('');
   const [api, setApi] = useState([]);
