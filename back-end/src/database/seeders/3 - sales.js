@@ -9,7 +9,7 @@ module.exports = {
             total_price: 10,
             delivery_address: 'r dos bobos n 0',
             delivery_number: '303310',
-            sale_time:  new Date('2011-08-01T19:58:00.000Z'),
+            sale_date:  new Date(),
             status: 'a'
         },
         {
@@ -19,7 +19,7 @@ module.exports = {
             total_price: 20,
             delivery_address: 'r dos bobos n 10',
             delivery_number: '102301',
-            sale_time:  new Date('2012-08-01T19:58:00.000Z'),
+            sale_date:  new Date(),
             status: 'b'
         }
         ]);
