@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
-// import regex from './Regex';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -18,7 +17,6 @@ export default function Register() {
     const validation = () => {
       const characterSix = 6;
       const characterTwelve = 12;
-      // const inputEmail = regex(email);
       const inputEmail = EmailValidator.validate(email);
       const inputName = name.length >= characterTwelve;
       const inputPassword = password.length >= characterSix;
