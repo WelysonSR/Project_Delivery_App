@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function CardMeuPedidos({ id, status, data, price }) {
+export default function MyOrder({ id, status, data, price }) {
   return (
     <Link to={ `/customer/orders/${id}` }>
       <div data-testid={ `customer_orders__element-order-id-${id}` }>
@@ -22,7 +22,7 @@ export default function CardMeuPedidos({ id, status, data, price }) {
   );
 }
 
-CardMeuPedidos.propTypes = {
+MyOrder.propTypes = {
   id: PropTypes.number,
   status: PropTypes.string,
   data: PropTypes.string,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from 'axios';
-import CardMeuPedidos from '../components/CardMeuPedido';
-// import Header from '../components/Header';
+import MyOrder from '../components/MyOrder';
+import NavBar from '../components/NavBar';
 
 export default function Orders() {
   const [sales, setSales] = useState([]);
@@ -9,6 +9,7 @@ export default function Orders() {
   useEffect(() => {
     const getSales = async () => {
       const { data } = await api.get('http://localhost:3001/sales');
+      console.log(data);
       setSales(data);
     };
     getSales();
@@ -16,15 +17,15 @@ export default function Orders() {
 
   return (
     <section>
-      {/* <Header /> */}
+      <NavBar />
       {
-        sales.map(({ id, status, data, price }) => (
-          <CardMeuPedidos
+        sales.map(({ id, status, saleDate, totalPrice }) => (
+          <MyOrder
             key={ id }
             id={ id }
             status={ status }
-            data={ data }
-            price={ price }
+            data={ saleDate }
+            price={ totalPrice }
           />
         ))
       }
