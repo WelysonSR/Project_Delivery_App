@@ -21,7 +21,7 @@ function Login() {
     const login = { email, password };
     try {
       const { data } = await axios.post(URL, login);
-      console.log(data);
+      localStorage.setItem('user', JSON.stringify(data));
       dispatch(user(email));
       dispatch(reduxPswrd(password));
       history.push('/customer/products');
