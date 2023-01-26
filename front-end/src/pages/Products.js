@@ -38,7 +38,6 @@ function Products() {
 
   useEffect(() => {
     const teste = JSON.parse(localStorage.getItem('carrinho'));
-    console.log(teste);
     if (!teste) {
       getEmpyCart();
     } else {

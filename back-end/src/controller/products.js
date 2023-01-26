@@ -5,5 +5,4 @@ const getAll = async (_req, res) => {
     res.status(200).json(validatedUser);
   };
 
-module.exports = { getAll }
-  
+module.exports = { getAll };
