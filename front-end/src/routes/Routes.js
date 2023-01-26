@@ -27,6 +27,8 @@ function Routes() {
         <Route
           path="/customer/checkout"
           component={ Checkout }
+        />
+        <Route
           path="/customer/products"
           component={ Products }
         />

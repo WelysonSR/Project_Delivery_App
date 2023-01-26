@@ -11,6 +11,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use('/images', express.static('images'));
+
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use('/user', loginRoutes);

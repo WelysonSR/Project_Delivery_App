@@ -32,7 +32,7 @@ export default function Register() {
     const register = { name, email, password };
     try {
       const { data } = await axios.post(URL, register);
-      console.log(data);
+      localStorage.setItem('user', JSON.stringify(data));
       history.push('/customer/products');
     } catch (err) {
       setvalidate(true);
