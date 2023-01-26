@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Checkout from '../pages/Checkout';
+import Products from '../pages/Products';
 
 function Routes() {
   return (
@@ -26,6 +27,8 @@ function Routes() {
         <Route
           path="/customer/checkout"
           component={ Checkout }
+          path="/customer/products"
+          component={ Products }
         />
       </Switch>
     </div>
