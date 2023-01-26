@@ -5,10 +5,15 @@ const tableName = 'customer_checkout__element-order-table-name-';
 const tableQuantity = 'customer_checkout__element-order-table-quantity-';
 const tablePrice = 'customer_checkout__element-order-table-unit-price-';
 const tableTotal = 'customer_checkout__element-order-table-sub-total-';
-const tableRmv = 'customer_checkout__element-order-table-remove->';
+const tableRmv = 'customer_checkout__element-order-table-remove-';
 
 export default function OrderTable() {
-  const { generic, setGeneric } = useState();
+  const { setGeneric } = useState([]);
+  const user = JSON.parse(localStorage.getItem('carrinho'));
+
+  const removeFromLocalStorage = () => {
+    localStorage.removeItem(`${i}`);
+  };
 
   const columns = () => (
     <tr>
@@ -20,25 +25,24 @@ export default function OrderTable() {
     </tr>
   );
 
-  const rmvItem = (item) => {
-    const remover = generic
-      .filter((e) => e.order !== Number(item));
+  const rmvItem = (itemId) => {
+    const remover = removeFromLocalStorage
+      .filter((e) => e.productId !== Number(itemId));
     setGeneric(remover);
   };
 
   const rows = () => {
-    if (generic.lenght !== undefined || generic.lenght !== 0) {
-      return (generic.map((e, i) => (
+    if (user.lenght !== 0 || user.lenght !== undefined) {
+      return (user.map((e, i) => (
         <tr key={ i }>
-          <td data-testid={ `${tableNumber}${i}` }>{ i + 1 }</td>
+          <td data-testid={ `${tableNumber}${i}` }>{i.itemNumber + 1}</td>
           <td data-testid={ `${tableName}${i}` }>{e.name}</td>
           <td data-testid={ `${tableQuantity}${i}` }>{e.quantity}</td>
-          <td data-testid={ `${tablePrice}${i}` }>{e.price}</td>
-          <td data-testid={ `${tableTotal}${i}` }>{e.price * e.quantity}</td>
+          <td data-testid={ `${tablePrice}${i}` }>{e.unitPrice}</td>
+          <td data-testid={ `${tableTotal}${i}` }>{e.subTotal}</td>
           <td>
             <button
               type="button"
-              id="deleteBtn"
               data-testid={ `${tableRmv}${i}` }
               onClick={ rmvItem }
             >
@@ -52,7 +56,7 @@ export default function OrderTable() {
   };
 
   return (
-    <main>
+    <div>
       <h4> Finalizar Pedido </h4>
       <table>
         <thead>
@@ -62,6 +66,6 @@ export default function OrderTable() {
           { rows() }
         </tbody>
       </table>
-    </main>
+    </div>
   );
 }
