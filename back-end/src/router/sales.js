@@ -1,15 +1,15 @@
 const router = require('express').Router();
 const salesController = require('../controller/sales');
-const validateSale = require('../utils/validate');
+const auth = require('../middleware/auth');
 
 router.get('/', salesController.findAll);
 
 router.get('/:id', salesController.findById);
 
-router.get('/:id', salesController.upDateStatus);
+router.patch('/:id', auth, salesController.upDateStatus);
+
+router.post('/', auth, salesController.createSale);
 
 router.delete('/:id', salesController.deleteSale);
-
-router.post('/', validateSale, salesController.createSale);
 
 module.exports = router;

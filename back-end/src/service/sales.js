@@ -25,8 +25,27 @@ const deleteSale = async (id) => {
 };
 
 const createSale = async (sale) => {
-  const result = await sale.create(sale);
-  return result;
+  const newSale = await sequelize.transaction(async (transaction) => {
+    const { products, ...saleInfo } = saleData;
+    const saleDate = new Date();
+    const status = 'Pendente';
+
+    const addNewSale = await sale.create({
+      ...saleInfo,
+      userId,
+      saleDate,
+      status,
+    }, { transaction });
+
+    const insertProducts = products.map(({ productId, quantity }) => ({
+      saleId: addNewSale.id, productId, quantity,
+    }));
+    await salesProduct.bulkCreate(insertProducts, { transaction });
+
+    return addNewSale;
+  });
+
+  return newSale;
 };
 
 module.exports = {

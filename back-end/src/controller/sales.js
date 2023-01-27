@@ -25,8 +25,10 @@ const deleteSale = async (req, res) => {
 };
 
 const createSale = async (req, res) => {
-  const result = await salesService.createSale(req.body);
-  res.status(statusHttp.CREATED).json(result);
+  const { id } = req.user;
+  const { body } = req;
+  const newSale = await salesService.addSale(id, body);
+  res.status(statusHttp.CREATED).json(newSale);
 };
 
 
