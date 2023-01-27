@@ -8,7 +8,6 @@ const tableTotal = 'customer_checkout__element-order-table-sub-total-';
 const tableRmv = 'customer_checkout__element-order-table-remove-';
 
 export default function OrderTable() {
-  const [setGeneric] = useState([]);
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -19,10 +18,6 @@ export default function OrderTable() {
     };
     getProduct();
   }, []);
-
-  const removeFromLocalStorage = () => {
-    localStorage.removeItem(`${i}`);
-  };
 
   const columns = () => (
     <tr>
@@ -36,9 +31,9 @@ export default function OrderTable() {
   );
 
   const rmvItem = (itemId) => {
-    const remover = removeFromLocalStorage
+    const remover = product
       .filter((e) => e.productId !== Number(itemId));
-    setGeneric(remover);
+    setProduct(remover);
   };
 
   const itemRound = (value) => {
@@ -47,8 +42,8 @@ export default function OrderTable() {
   };
 
   const convert = (value) => {
-    const item = value;
-    return item.toString().replace('.', ',');
+    const item = `Total: ${value}`;
+    return item.replace('.', ',');
   };
 
   const rows = () => {
@@ -66,7 +61,8 @@ export default function OrderTable() {
             <button
               type="button"
               data-testid={ `${tableRmv}${i}` }
-              onClick={ rmvItem }
+              id={ e.productId }
+              onClick={ (event) => rmvItem(event.target.id) }
             >
               Remover
             </button>
