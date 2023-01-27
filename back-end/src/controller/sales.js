@@ -24,9 +24,16 @@ const deleteSale = async (req, res) => {
   res.status(statusHttp.OK).json({ message: "Sale deleted successfully" });
 };
 
+const newSale = async (req , res) => {
+  const {id} = req.params;
+  const result = await salesService.postSale(id);
+  res.status(statusHttp.OK).json(result);
+}
+
 module.exports = {
   findAll,
   findById,
   upDateStatus,
-  deleteSale
+  deleteSale,
+  newSale,
 };
