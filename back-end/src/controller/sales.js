@@ -18,8 +18,15 @@ const upDateStatus = async (req, res) => {
   res.status(statusHttp.OK).json(result);
 };
 
+const deleteSale = async (req, res) => {
+  const { id } = req.params;
+  await salesService.deleteSale(id);
+  res.status(statusHttp.OK).json({ message: "Sale deleted successfully" });
+};
+
 module.exports = {
   findAll,
   findById,
   upDateStatus,
+  deleteSale
 };

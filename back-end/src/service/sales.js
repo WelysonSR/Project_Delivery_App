@@ -19,8 +19,14 @@ const upDateStatus = async (id, statusSales) => {
   return result;
 }
 
+const deleteSale = async (id) => {
+  await sale.destroy({ where: { id } });
+  return { message: "Sale deleted successfully" };
+};
+
 module.exports = {
   findAll,
   findById,
   upDateStatus,
+  deleteSale
 };
