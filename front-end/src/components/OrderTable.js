@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkout as checkoutRedux } from '../redux/reducer/products';
 
 const tableNumber = 'customer_checkout__element-order-table-item-number-';
 const tableName = 'customer_checkout__element-order-table-name-';
@@ -8,16 +10,8 @@ const tableTotal = 'customer_checkout__element-order-table-sub-total-';
 const tableRmv = 'customer_checkout__element-order-table-remove-';
 
 export default function OrderTable() {
-  const [product, setProduct] = useState([]);
-
-  useEffect(() => {
-    const getProduct = () => {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      // const resut = carrinho.filter((item) => item.quantity > 0);
-      setProduct(carrinho);
-    };
-    getProduct();
-  }, []);
+  const dispatch = useDispatch();
+  const cart = useSelector(({ products }) => products.checkout);
 
   const columns = () => (
     <tr>
@@ -31,13 +25,16 @@ export default function OrderTable() {
   );
 
   const rmvItem = (itemId) => {
-    const filter = product.filter((drink) => drink.id !== itemId);
-    const newproduct = product.find((drink) => drink.id === +itemId);
-    console.log('filter', filter);
-    console.log('new product', newproduct);
-    newproduct.quantity = 0;
-    localStorage.setItem('carrinho', JSON.stringify([...filter, newproduct]));
-    setProduct([...filter, newproduct]);
+    const filter = cart.filter((drink) => drink.id !== +itemId);
+    const newproduct = cart.find((drink) => drink.id === +itemId);
+    const newObj = {
+      id: newproduct.id,
+      name: newproduct.name,
+      price: newproduct.price,
+      quantity: 0,
+    };
+    localStorage.setItem('carrinho', JSON.stringify([...filter, newObj]));
+    dispatch(checkoutRedux([...filter, newObj]));
   };
 
   const itemRound = (value) => {
@@ -51,8 +48,8 @@ export default function OrderTable() {
   };
 
   const rows = () => {
-    if (product.length !== 0 || product.length !== undefined) {
-      return (product.filter((item) => item.quantity > 0).map((e, i) => (
+    if (cart.length !== 0 || cart.length !== undefined) {
+      return (cart.filter((item) => item.quantity > 0).map((e, i) => (
         <tr key={ i }>
           <td data-testid={ `${tableNumber}${i}` }>{i + 1}</td>
           <td data-testid={ `${tableName}${i}` }>{e.name}</td>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Navbar from '../components/NavBar';
 import OrderTable from '../components/OrderTable';
@@ -7,8 +8,8 @@ import OrderTable from '../components/OrderTable';
 export default function Checkout() {
   const { seller, setSeller } = useState('');
   const [api, setApi] = useState([]);
-  const [product, setProduct] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const cart = useSelector(({ products }) => products.checkout);
 
   useEffect(() => {
     const getAxios = async () => {
@@ -22,12 +23,6 @@ export default function Checkout() {
       }
     };
     getAxios();
-    const getProduct = () => {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      const resut = carrinho.filter((item) => item.quantity > 0);
-      setProduct(resut);
-    };
-    getProduct();
   }, []);
 
   const history = useHistory();
@@ -45,7 +40,7 @@ export default function Checkout() {
   };
 
   const redirectToCustomerOrders = (id) => {
-    url = `/customers/orders${id}`;
+    const url = `/customers/orders${id}`;
     history.push(url);
   };
 
@@ -54,18 +49,16 @@ export default function Checkout() {
       status: 'Pendente',
     };
     redirectToCustomerOrders(item);
-    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-    setProduct(carrinho);
   };
 
   const getTotalPrice = () => {
-    const total = product.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+    const total = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
     setTotalPrice(total.toFixed(2).replace('.', ','));
   };
 
   useEffect(() => {
     getTotalPrice();
-  }, [OrderTable, getTotalPrice]);
+  }, [cart]);
 
   return (
     <main>
