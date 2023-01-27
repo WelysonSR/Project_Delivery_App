@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const tableNumber = 'customer_checkout__element-order-table-item-number-';
 const tableName = 'customer_checkout__element-order-table-name-';
@@ -8,8 +8,17 @@ const tableTotal = 'customer_checkout__element-order-table-sub-total-';
 const tableRmv = 'customer_checkout__element-order-table-remove-';
 
 export default function OrderTable() {
-  const { setGeneric } = useState([]);
-  const user = JSON.parse(localStorage.getItem('carrinho'));
+  const [setGeneric] = useState([]);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    const getProduct = () => {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+      const resut = carrinho.filter((item) => item.quantity > 0);
+      setProduct(resut);
+    };
+    getProduct();
+  }, []);
 
   const removeFromLocalStorage = () => {
     localStorage.removeItem(`${i}`);
@@ -22,6 +31,7 @@ export default function OrderTable() {
       <th>Quantidade</th>
       <th>Valor Unitário</th>
       <th>Sub-total</th>
+      <th>Remover Item</th>
     </tr>
   );
 
@@ -32,14 +42,16 @@ export default function OrderTable() {
   };
 
   const rows = () => {
-    if (user.lenght !== 0 || user.lenght !== undefined) {
-      return (user.map((e, i) => (
+    if (product.lenght !== 0 || product.lenght !== undefined) {
+      return (product.map((e, i) => (
         <tr key={ i }>
-          <td data-testid={ `${tableNumber}${i}` }>{i.itemNumber + 1}</td>
+          <td data-testid={ `${tableNumber}${i}` }>{e.id}</td>
           <td data-testid={ `${tableName}${i}` }>{e.name}</td>
           <td data-testid={ `${tableQuantity}${i}` }>{e.quantity}</td>
-          <td data-testid={ `${tablePrice}${i}` }>{e.unitPrice}</td>
-          <td data-testid={ `${tableTotal}${i}` }>{e.subTotal}</td>
+          <td data-testid={ `${tablePrice}${i}` }>{e.price}</td>
+          <td data-testid={ `${tableTotal}${i}` }>
+            {e.quantity * e.price}
+          </td>
           <td>
             <button
               type="button"

@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import axios from 'axios';
 import Navbar from '../components/NavBar';
 import OrderTable from '../components/OrderTable';
 
 export default function Checkout() {
   const { seller, setSeller } = useState('');
   const [api, setApi] = useState([]);
-
-  const getAxios = async () => {
-    try {
-      const URL = 'http://localhost:3001/user';
-
-      const { data } = await axios.get(URL);
-      setApi(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [product, setProduct] = useState([]);
 
   useEffect(() => {
+    const getAxios = async () => {
+      try {
+        const URL = 'http://localhost:3001/user';
+        const { data } = await axios.get(URL);
+        const resut = data.filter((user) => user.role === 'seller');
+        setApi(resut);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getAxios();
+    const getProduct = () => {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+      const resut = carrinho.filter((item) => item.quantity > 0);
+      setProduct(resut);
+    };
+    getProduct();
   }, []);
 
   const history = useHistory();
@@ -49,13 +55,18 @@ export default function Checkout() {
     redirectToCustomerOrders(item);
   };
 
+  const getTotalPrice = () => {
+    const total = product.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+    return total;
+  };
+
   return (
     <main>
       <Navbar />
       <OrderTable />
       <form>
         <p data-testid="customer_checkout__element-order-total-price">
-          Total:
+          {`Total: ${getTotalPrice().toFixed(2).replace('.', ',')}`}
         </p>
 
         <h4> Detalhes e Endereço para Entrega </h4>
