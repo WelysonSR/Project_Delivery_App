@@ -41,16 +41,26 @@ export default function OrderTable() {
     setGeneric(remover);
   };
 
+  const itemRound = (value) => {
+    const newItem = Math.round((value) * 100) / 100;
+    return newItem.toFixed(2);
+  };
+
+  const convert = (value) => {
+    const item = value;
+    return item.toString().replace('.', ',');
+  };
+
   const rows = () => {
     if (product.lenght !== 0 || product.lenght !== undefined) {
       return (product.map((e, i) => (
         <tr key={ i }>
-          <td data-testid={ `${tableNumber}${i}` }>{e.id}</td>
+          <td data-testid={ `${tableNumber}${i}` }>{i + 1}</td>
           <td data-testid={ `${tableName}${i}` }>{e.name}</td>
           <td data-testid={ `${tableQuantity}${i}` }>{e.quantity}</td>
-          <td data-testid={ `${tablePrice}${i}` }>{e.price}</td>
+          <td data-testid={ `${tablePrice}${i}` }>{ convert(itemRound(e.price)) }</td>
           <td data-testid={ `${tableTotal}${i}` }>
-            {e.quantity * e.price}
+            {convert(itemRound(e.quantity * e.price))}
           </td>
           <td>
             <button
