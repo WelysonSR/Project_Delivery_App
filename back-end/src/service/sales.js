@@ -24,15 +24,15 @@ const deleteSale = async (id) => {
   return { message: "Sale deleted successfully" };
 };
 
-const postSale = async (id) => {
-  const newSale = await sale.create({where:{id}});
-  return newSale;
-}
+const createSale = async (sale) => {
+  const result = await sale.create(sale);
+  return result;
+};
 
 module.exports = {
   findAll,
   findById,
   upDateStatus,
   deleteSale,
-  postSale,
+  createSale
 };

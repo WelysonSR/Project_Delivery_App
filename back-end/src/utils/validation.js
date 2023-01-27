@@ -50,7 +50,19 @@ const validateLogin = ({ email, password }) => {
   return true;
 };
 
+const validateSale = (req, res, next) => {
+  const { totalPrice, deliveryAddress, deliveryNumber, status } = req.body;
+  if (!totalPrice || !deliveryAddress || !deliveryNumber || !status) {
+    res.status(statusHttp.BAD_REQUEST).json({
+      message: 'Missing parameters for sale'
+    });
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   validateRegister,
   validateLogin,
+  validateSale
 };
