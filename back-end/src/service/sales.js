@@ -1,3 +1,4 @@
+const sequelize = require('sequelize');
 const { sale } = require('../database/models');
 const { errorsTypes } = require('../utils/errorsCatalog');
 
