@@ -38,7 +38,7 @@ function Products() {
 
   useEffect(() => {
     const teste = JSON.parse(localStorage.getItem('carrinho'));
-    if (!teste) {
+    if (!teste || teste.length < 1) {
       getEmpyCart();
     } else {
       setCart(teste);

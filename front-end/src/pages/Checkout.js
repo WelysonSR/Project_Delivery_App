@@ -8,6 +8,7 @@ export default function Checkout() {
   const { seller, setSeller } = useState('');
   const [api, setApi] = useState([]);
   const [product, setProduct] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const getAxios = async () => {
@@ -53,12 +54,18 @@ export default function Checkout() {
       status: 'Pendente',
     };
     redirectToCustomerOrders(item);
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    setProduct(carrinho);
   };
 
   const getTotalPrice = () => {
     const total = product.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-    return total;
+    setTotalPrice(total.toFixed(2).replace('.', ','));
   };
+
+  useEffect(() => {
+    getTotalPrice();
+  }, [OrderTable, getTotalPrice]);
 
   return (
     <main>
@@ -66,7 +73,7 @@ export default function Checkout() {
       <OrderTable />
       <form>
         <p data-testid="customer_checkout__element-order-total-price">
-          {`Total: ${getTotalPrice().toFixed(2).replace('.', ',')}`}
+          {totalPrice}
         </p>
 
         <h4> Detalhes e Endereço para Entrega </h4>

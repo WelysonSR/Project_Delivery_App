@@ -13,8 +13,8 @@ export default function OrderTable() {
   useEffect(() => {
     const getProduct = () => {
       const carrinho = JSON.parse(localStorage.getItem('carrinho'));
-      const resut = carrinho.filter((item) => item.quantity > 0);
-      setProduct(resut);
+      // const resut = carrinho.filter((item) => item.quantity > 0);
+      setProduct(carrinho);
     };
     getProduct();
   }, []);
@@ -31,9 +31,13 @@ export default function OrderTable() {
   );
 
   const rmvItem = (itemId) => {
-    const remover = product
-      .filter((e) => e.productId !== Number(itemId));
-    setProduct(remover);
+    const filter = product.filter((drink) => drink.id !== itemId);
+    const newproduct = product.find((drink) => drink.id === +itemId);
+    console.log('filter', filter);
+    console.log('new product', newproduct);
+    newproduct.quantity = 0;
+    localStorage.setItem('carrinho', JSON.stringify([...filter, newproduct]));
+    setProduct([...filter, newproduct]);
   };
 
   const itemRound = (value) => {
@@ -47,8 +51,8 @@ export default function OrderTable() {
   };
 
   const rows = () => {
-    if (product.lenght !== 0 || product.lenght !== undefined) {
-      return (product.map((e, i) => (
+    if (product.length !== 0 || product.length !== undefined) {
+      return (product.filter((item) => item.quantity > 0).map((e, i) => (
         <tr key={ i }>
           <td data-testid={ `${tableNumber}${i}` }>{i + 1}</td>
           <td data-testid={ `${tableName}${i}` }>{e.name}</td>
@@ -61,7 +65,7 @@ export default function OrderTable() {
             <button
               type="button"
               data-testid={ `${tableRmv}${i}` }
-              id={ e.productId }
+              id={ e.id }
               onClick={ (event) => rmvItem(event.target.id) }
             >
               Remover
