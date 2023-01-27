@@ -17,7 +17,7 @@ const upDateStatus = async (id, statusSales) => {
   await sale.update(statusSales, { where: { id } });
   const result = await findById(id);
   return result;
-}
+};
 
 const deleteSale = async (id) => {
   await sale.destroy({ where: { id } });
