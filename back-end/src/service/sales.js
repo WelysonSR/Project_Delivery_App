@@ -26,20 +26,20 @@ const deleteSale = async (id) => {
 };
 
 const createSale = async (saleData) => {
-  const newSale = await sequelize.Transaction(async (transaction) => {
-    // const { products, ...saleInfo } = saleData;
+  const newSale = await sequelize.transaction(async (t) => {
+    const { products, ...saleInfo } = saleData;
     const saleDate = new Date();
     const status = 'Pendente';
 
     const addNewSale = await sale.create({
-      ...saleData,
-      userId,
+      ...saleInfo,
       saleDate,
       status,
-    }, { transaction });
+    }, { transaction: t });
 
-    const insertProducts = products.map(({ productId, quantity }) => ({
-      saleId: addNewSale.id, productId, quantity,
+    console.log(addNewSale);
+    const insertProducts = products.map(({ id, quantity }) => ({
+      saleId: addNewSale.id, productId: id, quantity,
     }));
     await salesProduct.bulkCreate(insertProducts, { transaction });
 
