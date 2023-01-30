@@ -1,5 +1,16 @@
-const { sale, salesProduct } = require('../database/models');
+const { user, sale, product, salesProduct } = require('../database/models');
 const { errorsTypes } = require('../utils/errorsCatalog');
+
+const ASSOCIATIONS = [
+  { model: user, as: 'user', attributes: { exclude: ['id', 'password', 'role'] } },
+  { model: user, as: 'seller', attributes: { exclude: ['id', 'password', 'role'] } },
+  { 
+    model: product,
+    as: 'products',
+    attributes: { exclude: ['urlImage'] },
+    through: { attributes: ['quantity'], as: 'productQuantity' },
+  },
+];
 
 const findAll = async () => {
   const allSales = await sale.findAll();
@@ -7,7 +18,7 @@ const findAll = async () => {
 };
 
 const findById = async (id) => {
-  const result = await sale.findByPk(id);
+  const result = await sale.findByPk(id, { include: ASSOCIATIONS });
   return result;
 };
 

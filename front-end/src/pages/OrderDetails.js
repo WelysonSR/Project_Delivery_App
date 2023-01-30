@@ -10,7 +10,8 @@ export default function OrderDetails() {
 
   useEffect(() => {
     const getDetails = async () => {
-      const { data } = await api.get(`/sales/${paramsId}`);
+      const { data } = await api.get(`http://localhost:3001/sales/${paramsId}`);
+      console.log(data);
       setDetails(data);
     };
     getDetails();
