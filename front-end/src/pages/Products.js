@@ -45,6 +45,9 @@ function Products() {
     const cartLocalSt = JSON.parse(localStorage.getItem('carrinho'));
     if (!cartLocalSt || cartLocalSt.length === 0) {
       getEmpyCart();
+    } else {
+      dispatch(checkoutRedux(cartLocalSt));
+
     }
   }, [api]);
 

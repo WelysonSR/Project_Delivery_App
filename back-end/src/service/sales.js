@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const { sale } = require('../database/models');
+const { sale, salesProduct } = require('../database/models');
 const { errorsTypes } = require('../utils/errorsCatalog');
 
 const findAll = async () => {
@@ -25,14 +25,14 @@ const deleteSale = async (id) => {
   return { message: "Sale deleted successfully" };
 };
 
-const createSale = async (sale) => {
-  const newSale = await sequelize.transaction(async (transaction) => {
-    const { products, ...saleInfo } = saleData;
+const createSale = async (saleData) => {
+  const newSale = await sequelize.Transaction(async (transaction) => {
+    // const { products, ...saleInfo } = saleData;
     const saleDate = new Date();
     const status = 'Pendente';
 
     const addNewSale = await sale.create({
-      ...saleInfo,
+      ...saleData,
       userId,
       saleDate,
       status,
