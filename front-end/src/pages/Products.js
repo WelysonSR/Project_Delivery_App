@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { checkout as checkoutRedux } from '../redux/reducer/products';
 import NavBar from '../components/NavBar';
 
 function Products() {
   const [api, setApi] = useState([]);
-  const [cart, setCart] = useState([]);
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
+  const cart = useSelector(({ products }) => products.checkout);
   const validate = cart.length > 1;
 
   const getAxios = async () => {
     try {
       const URL = 'http://localhost:3001/product';
-
       const { data } = await axios.get(URL);
       setApi(data);
       history.push('/customer/products');
@@ -29,7 +32,9 @@ function Products() {
       price: (+product.price),
       quantity: 0,
     }));
-    setCart(products);
+    console.log(products);
+    localStorage.setItem('carrinho', JSON.stringify(products));
+    dispatch(checkoutRedux(products));
   };
 
   useEffect(() => {
@@ -37,11 +42,11 @@ function Products() {
   }, []);
 
   useEffect(() => {
-    const teste = JSON.parse(localStorage.getItem('carrinho'));
-    if (!teste) {
+    const cartLocalSt = JSON.parse(localStorage.getItem('carrinho'));
+    if (!cartLocalSt || cartLocalSt.length === 0) {
       getEmpyCart();
     } else {
-      setCart(teste);
+      dispatch(checkoutRedux(cartLocalSt));
     }
   }, [api]);
 
@@ -49,25 +54,42 @@ function Products() {
     if (value === '+') {
       const filter = cart.filter((drink) => drink.id !== id);
       const newCart = cart.find((drink) => drink.id === id);
-      newCart.quantity += 1;
-      setCart([...filter, newCart]);
+      const newObj = {
+        id: newCart.id,
+        name: newCart.name,
+        price: newCart.price,
+        quantity: newCart.quantity + 1,
+      };
+      dispatch(checkoutRedux([...filter, newObj]));
+      localStorage.setItem('carrinho', JSON.stringify([...filter, newObj]));
     }
     if (value === '-') {
       const filter = cart.filter((drink) => drink.id !== id);
       const newCart = cart.find((drink) => drink.id === id);
       if (newCart.quantity > 0) {
-        newCart.quantity -= 1;
+        const newObj = {
+          id: newCart.id,
+          name: newCart.name,
+          price: newCart.price,
+          quantity: newCart.quantity - 1,
+        };
+        dispatch(checkoutRedux([...filter, newObj]));
+        localStorage.setItem('carrinho', JSON.stringify([...filter, newObj]));
       }
-      setCart([...filter, newCart]);
     }
-    localStorage.setItem('carrinho', JSON.stringify(cart));
   };
 
   const changeProductInput = (value, id) => {
     const filter = cart.filter((drink) => drink.id !== id);
     const newCart = cart.find((drink) => drink.id === id);
-    newCart.quantity = value;
-    setCart([...filter, newCart]);
+    const newObj = {
+      id: newCart.id,
+      name: newCart.name,
+      price: newCart.price,
+      quantity: Number(value),
+    };
+    dispatch(checkoutRedux([...filter, newObj]));
+    localStorage.setItem('carrinho', JSON.stringify([...filter, newObj]));
   };
 
   const getQuantity = (id) => {

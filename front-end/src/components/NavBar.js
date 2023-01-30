@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { checkout } from '../redux/reducer/products';
+import { user as userRedux, password } from '../redux/reducer/login';
 
 export default function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
+  const dispatch = useDispatch();
 
   const removeFromLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('carrinho');
+    dispatch(checkout([]));
+    dispatch(userRedux(''));
+    dispatch(password(''));
   };
   return (
     <nav>

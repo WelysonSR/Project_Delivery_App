@@ -20,7 +20,6 @@ export default function Register() {
       const inputEmail = EmailValidator.validate(email);
       const inputName = name.length >= characterTwelve;
       const inputPassword = password.length >= characterSix;
-      console.log(inputEmail, inputName, inputPassword);
       return (inputEmail && inputName && inputPassword);
     };
     setDisabledBtn(validation());
@@ -36,7 +35,6 @@ export default function Register() {
       history.push('/customer/products');
     } catch (err) {
       setvalidate(true);
-      console.log(err);
     }
   };
 

@@ -16,11 +16,15 @@ const sale = (sequelize, DataTypes) => {
       totalPrice: DataTypes.DECIMAL(9, 2),
       deliveryAddress: DataTypes.STRING(100),
       deliveryNumber: DataTypes.STRING(50),
-      saleDate: DataTypes.DATE,
+      saleDate: {
+        type: DataTypes.DATE, 
+        defaultValue: DataTypes.NOW 
+      },
       status: DataTypes.STRING(50),
     }, 
     { 
       timestamps: false,
+      tablename: 'sale',
       underscored: true,
     },
   );
