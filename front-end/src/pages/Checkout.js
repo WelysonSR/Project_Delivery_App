@@ -22,8 +22,6 @@ export default function Checkout() {
         const { data } = await axios.get(URL);
         const result = data.filter((u) => u.role === 'seller');
         setApi(result);
-        setSeller(result[0]);
-        console.log(result, seller);
       } catch (err) {
         console.log(err);
       }
@@ -40,7 +38,7 @@ export default function Checkout() {
       const obj = {
         products: cart.filter((product) => product.quantity > 0),
         userId: Number(user.id),
-        sellerId: Number(seller.id),
+        sellerId: Number(seller.id) || Number(api[0].id),
         totalPrice: Number(totalPrice.replace(',', '.')),
         deliveryAddress: address,
         deliveryNumber: number,
@@ -51,23 +49,11 @@ export default function Checkout() {
           Authorization: user.token,
         },
       });
-      const url = `/customers/orders/${data.id}`;
+      const url = `/customer/orders/${data.id}`;
       history.push(url);
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const selectSeller = () => {
-    const item = api.map((e, index) => (
-      <option
-        key={ index }
-        value={ e }
-      >
-        {e.name}
-      </option>
-    ));
-    return item;
   };
 
   const getTotalPrice = () => {
@@ -79,6 +65,7 @@ export default function Checkout() {
     getTotalPrice();
   }, [cart]);
 
+  console.log(seller);
   return (
     <main>
       <Navbar />
@@ -95,10 +82,18 @@ export default function Checkout() {
           <select
             id="vendedora"
             data-testid="customer_checkout__select-seller"
-            value={ seller }
             onChange={ ({ target }) => setSeller(target.value) }
+            value={ api[0] }
           >
-            {selectSeller()}
+            { api.map((e, index) => (
+              <option
+                key={ index }
+                value={ e }
+              >
+                {e.name}
+              </option>
+            ))}
+            ;
           </select>
         </label>
 
