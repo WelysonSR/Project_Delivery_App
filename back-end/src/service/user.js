@@ -12,6 +12,7 @@ const login = async (email, password) => {
   if (md5(password) !== userPassword) throw new Error(errorsTypes.INVALID_PASSWORD);
   const token = generateToken(userExist);
   return {
+    id: userExist.id,
     name: userExist.name,
     email: userExist.email,
     role: userExist.role,

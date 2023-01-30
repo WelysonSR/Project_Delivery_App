@@ -6,14 +6,14 @@ import Navbar from '../components/NavBar';
 import OrderTable from '../components/OrderTable';
 
 export default function Checkout() {
-  const [seller, setSeller] = useState('');
+  const [seller, setSeller] = useState([]);
   const [address, setAddress] = useState('');
   const [api, setApi] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [number, setNumber] = useState(0);
+  const [user, setUser] = useState({});
 
   const cart = useSelector(({ products }) => products.checkout);
-  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const getAxios = async () => {
@@ -23,11 +23,13 @@ export default function Checkout() {
         const result = data.filter((u) => u.role === 'seller');
         setApi(result);
         setSeller(result[0]);
+        console.log(result, seller);
       } catch (err) {
         console.log(err);
       }
     };
     getAxios();
+    setUser(JSON.parse(localStorage.getItem('user')));
   }, []);
 
   const history = useHistory();
@@ -37,8 +39,8 @@ export default function Checkout() {
       const URL = 'http://localhost:3001/sales/';
       const obj = {
         products: cart.filter((product) => product.quantity > 0),
-        userId: user.id,
-        sellerId: seller.id,
+        userId: Number(user.id),
+        sellerId: Number(seller.id),
         totalPrice: Number(totalPrice.replace(',', '.')),
         deliveryAddress: address,
         deliveryNumber: number,
@@ -60,7 +62,7 @@ export default function Checkout() {
     const item = api.map((e, index) => (
       <option
         key={ index }
-        value={ `${e.id}` }
+        value={ e }
       >
         {e.name}
       </option>

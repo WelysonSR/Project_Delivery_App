@@ -21,6 +21,7 @@ const sale = (sequelize, DataTypes) => {
     }, 
     { 
       timestamps: false,
+      tablename: 'sale',
       underscored: true,
     },
   );
