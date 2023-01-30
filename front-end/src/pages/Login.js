@@ -24,7 +24,12 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(data));
       dispatch(user(email));
       dispatch(reduxPswrd(password));
-      history.push('/customer/products');
+      if (data.role !== 'customer') {
+        history.push('/seller/orders');
+      }
+      if (data.role === 'customer') {
+        history.push('/customer/products');
+      }
     } catch (err) {
       setvalidate(true);
       console.log(err);
