@@ -1,4 +1,3 @@
-const sequelize = require('sequelize');
 const { sale, salesProduct } = require('../database/models');
 const { errorsTypes } = require('../utils/errorsCatalog');
 
@@ -22,11 +21,10 @@ const upDateStatus = async (id, statusSales) => {
 
 const deleteSale = async (id) => {
   await sale.destroy({ where: { id } });
-  return { message: "Sale deleted successfully" };
+  return { message: 'Sale deleted successfully' };
 };
 
 const createSale = async (saleData) => {
-  const newSale = await sequelize.transaction(async (t) => {
     const { products, ...saleInfo } = saleData;
     const saleDate = new Date();
     const status = 'Pendente';
@@ -35,18 +33,15 @@ const createSale = async (saleData) => {
       ...saleInfo,
       saleDate,
       status,
-    }, { transaction: t });
+    });
 
     console.log(addNewSale);
-    const insertProducts = products.map(({ id, quantity }) => ({
-      saleId: addNewSale.id, productId: id, quantity,
-    }));
-    await salesProduct.bulkCreate(insertProducts, { transaction });
 
+    const insertSalesProducts = products.map(async ({ id, quantity }) => {
+      await salesProduct.create({ saleId: addNewSale.id, productId: id, quantity });
+    });
+    await Promise.all(insertSalesProducts);
     return addNewSale;
-  });
-
-  return newSale;
 };
 
 module.exports = {
@@ -54,5 +49,5 @@ module.exports = {
   findById,
   upDateStatus,
   deleteSale,
-  createSale
+  createSale,
 };

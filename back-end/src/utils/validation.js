@@ -1,4 +1,5 @@
 const joi = require('joi');
+const statusHttp = require('./statusHttp');
 
 const schemaName = joi.string().min(12).required()
   .messages({
@@ -54,7 +55,7 @@ const validateSale = (req, res, next) => {
   const { totalPrice, deliveryAddress, deliveryNumber, status } = req.body;
   if (!totalPrice || !deliveryAddress || !deliveryNumber || !status) {
     res.status(statusHttp.BAD_REQUEST).json({
-      message: 'Missing parameters for sale'
+      message: 'Missing parameters for sale',
     });
   } else {
     next();
@@ -64,5 +65,5 @@ const validateSale = (req, res, next) => {
 module.exports = {
   validateRegister,
   validateLogin,
-  validateSale
+  validateSale,
 };

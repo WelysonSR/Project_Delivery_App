@@ -13,17 +13,16 @@ export default function Checkout() {
   const [number, setNumber] = useState(0);
 
   const cart = useSelector(({ products }) => products.checkout);
-  const user = JSON.parse(localStorage.getItem("user"));
-
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const getAxios = async () => {
       try {
         const URL = 'http://localhost:3001/user';
         const { data } = await axios.get(URL);
-        const result = data.filter((user) => user.role === 'seller');
+        const result = data.filter((u) => u.role === 'seller');
         setApi(result);
-        setSeller(result[0])
+        setSeller(result[0]);
       } catch (err) {
         console.log(err);
       }
@@ -31,41 +30,43 @@ export default function Checkout() {
     getAxios();
   }, []);
 
+  const history = useHistory();
 
   const postAxios = async () => {
     try {
-      const URL = `http://localhost:3001/sales/`;
+      const URL = 'http://localhost:3001/sales/';
       const obj = {
-        user_id: user.id,
-        seller_id: seller.id,
-        total_price: Number(totalPrice.replace(',', '.')),
-        delivery_address: address,
-        delivery_number: number,
-      }
-      const { data } = await axios.post(URL, obj);
-      console.log(data);
-      // const url = `/customers/orders${data.id}`;
-      // history.push(url);
+        products: cart.filter((product) => product.quantity > 0),
+        userId: user.id,
+        sellerId: seller.id,
+        totalPrice: Number(totalPrice.replace(',', '.')),
+        deliveryAddress: address,
+        deliveryNumber: number,
+      };
 
+      const { data } = await axios.post(URL, obj, {
+        headers: {
+          Authorization: user.token,
+        },
+      });
+      const url = `/customers/orders/${data.id}`;
+      history.push(url);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const history = useHistory();
-
   const selectSeller = () => {
     const item = api.map((e, index) => (
       <option
-        key={index}
-        value={`${e.id}`}
+        key={ index }
+        value={ `${e.id}` }
       >
         {e.name}
       </option>
     ));
     return item;
   };
-
 
   const getTotalPrice = () => {
     const total = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
@@ -92,8 +93,8 @@ export default function Checkout() {
           <select
             id="vendedora"
             data-testid="customer_checkout__select-seller"
-            value={seller}
-            onChange={({ target }) => setSeller(target.value)}
+            value={ seller }
+            onChange={ ({ target }) => setSeller(target.value) }
           >
             {selectSeller()}
           </select>
@@ -106,8 +107,8 @@ export default function Checkout() {
             id="endereço"
             placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
             data-testid="customer_checkout__input-address"
-            value={address}
-            onChange={({ target }) => setAddress(target.value)}
+            value={ address }
+            onChange={ ({ target }) => setAddress(target.value) }
           />
         </label>
 
@@ -118,15 +119,15 @@ export default function Checkout() {
             id="address"
             placeholder="198"
             data-testid="customer_checkout__input-address-number"
-            onChange={({ target }) => setNumber(target.value)}
-            value={number}
+            onChange={ ({ target }) => setNumber(target.value) }
+            value={ number }
           />
         </label>
 
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          onClick={postAxios}
+          onClick={ postAxios }
         >
           FINALIZAR PEDIDO
         </button>

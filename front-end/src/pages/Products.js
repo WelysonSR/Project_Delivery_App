@@ -47,7 +47,6 @@ function Products() {
       getEmpyCart();
     } else {
       dispatch(checkoutRedux(cartLocalSt));
-
     }
   }, [api]);
 

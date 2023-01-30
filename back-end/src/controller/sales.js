@@ -21,7 +21,7 @@ const upDateStatus = async (req, res) => {
 const deleteSale = async (req, res) => {
   const { id } = req.params;
   await salesService.deleteSale(id);
-  res.status(statusHttp.OK).json({ message: "Sale deleted successfully" });
+  res.status(statusHttp.OK).json({ message: 'Sale deleted successfully' });
 };
 
 const createSale = async (req, res) => {
@@ -30,11 +30,10 @@ const createSale = async (req, res) => {
   res.status(statusHttp.CREATED).json(newSale);
 };
 
-
 module.exports = {
   findAll,
   findById,
   upDateStatus,
   deleteSale,
-  createSale
+  createSale,
 };
