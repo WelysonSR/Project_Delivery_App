@@ -8,7 +8,7 @@ const ASSOCIATIONS = [
     model: product,
     as: 'products',
     attributes: { exclude: ['urlImage'] },
-    through: { attributes: ['quantity'], as: 'productQuantity' },
+    through: { attributes: ['quantity'] },
   },
 ];
 

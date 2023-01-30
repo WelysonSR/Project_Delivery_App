@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from 'axios';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 import NavBar from '../components/NavBar';
 import OrderDatailTable from '../components/OrderDatailsTable';
 
@@ -11,7 +12,6 @@ export default function OrderDetails() {
   useEffect(() => {
     const getDetails = async () => {
       const { data } = await api.get(`http://localhost:3001/sales/${paramsId}`);
-      console.log(data);
       setDetails(data);
     };
     getDetails();
@@ -61,7 +61,7 @@ export default function OrderDetails() {
           <p
             data-testid="customer_order_details__element-order-details-label-order-date"
           >
-            { saleDate }
+            { moment(saleDate).format('DD/MM/YYYY') }
           </p>
           <p
             data-testid={
