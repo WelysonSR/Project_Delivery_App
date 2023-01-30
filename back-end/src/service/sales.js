@@ -26,12 +26,10 @@ const deleteSale = async (id) => {
 
 const createSale = async (saleData) => {
     const { products, ...saleInfo } = saleData;
-    const saleDate = new Date();
     const status = 'Pendente';
 
     const addNewSale = await sale.create({
       ...saleInfo,
-      saleDate,
       status,
     });
 
