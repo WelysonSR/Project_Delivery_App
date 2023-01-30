@@ -3,7 +3,7 @@ import api from 'axios';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import NavBar from '../components/NavBar';
-import OrderDatailTable from '../components/OrderDatailsTable';
+import OrderDatailTable from '../components/OrderDetailsTable';
 
 export default function OrderDetails() {
   const [details, setDetails] = useState();

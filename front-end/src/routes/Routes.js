@@ -6,6 +6,8 @@ import Orders from '../pages/Orders';
 import Checkout from '../pages/Checkout';
 import Products from '../pages/Products';
 import OrderDetails from '../pages/OrderDetails';
+import SellerOrders from '../pages/SellerOrders';
+import SellerOrdersDetails from '../pages/SellerOrdersDetails';
 
 function Routes() {
   return (
@@ -41,6 +43,14 @@ function Routes() {
         <Route
           path="/customer/products"
           component={ Products }
+        />
+        <Route
+          path="/seller/orders/:id"
+          component={ SellerOrdersDetails }
+        />
+        <Route
+          path="/seller/orders/"
+          component={ SellerOrders }
         />
       </Switch>
     </div>
