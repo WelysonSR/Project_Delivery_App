@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { checkout } from '../redux/reducer/products';
@@ -6,6 +6,7 @@ import { user as userRedux, password } from '../redux/reducer/login';
 
 export default function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
+  const [linkOrders, setLinkOrders] = useState('/customer/orders');
   const dispatch = useDispatch();
 
   const removeFromLocalStorage = () => {
@@ -15,6 +16,14 @@ export default function NavBar() {
     dispatch(userRedux(''));
     dispatch(password(''));
   };
+
+  useEffect(() => {
+    const userLogin = JSON.parse(localStorage.getItem('user'));
+    if (userLogin && userLogin?.role !== 'customer') {
+      setLinkOrders('/seller/orders');
+    }
+  }, []);
+
   return (
     <nav>
       <div>
@@ -28,7 +37,7 @@ export default function NavBar() {
 
       <div>
         <Link
-          to="/customer/orders"
+          to={ linkOrders }
           data-testid="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS
