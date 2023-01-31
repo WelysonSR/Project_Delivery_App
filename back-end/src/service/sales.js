@@ -36,6 +36,7 @@ const deleteSale = async (id) => {
 };
 
 const createSale = async (saleData) => {
+    console.log("🚀 ~ file: sales.js:39 ~ createSale ~ saleData", saleData)
     const { products, ...saleInfo } = saleData;
     const status = 'Pendente';
 

@@ -41,7 +41,7 @@ export default function Checkout() {
         sellerId: Number(seller.id) || Number(api[0].id),
         totalPrice: Number(totalPrice.replace(',', '.')),
         deliveryAddress: address,
-        deliveryNumber: number,
+        deliveryNumber: Number(number),
       };
 
       const { data } = await axios.post(URL, obj, {
