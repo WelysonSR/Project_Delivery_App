@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import SellerOrdersCard from '../components/SellerOrdersCard';
 // import OrderDetailTable from '../components/OrderDetailsTable';
 
 export default function SellerOrderDetails() {
@@ -29,7 +30,7 @@ export default function SellerOrderDetails() {
   return (
     <section>
       <NavBar />
-      <p>{`${JSON.stringify(details)}`}</p>
+      <SellerOrdersCard details={ details } />
     </section>
   );
 }
