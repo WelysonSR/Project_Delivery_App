@@ -47,38 +47,32 @@ export default function SellerOrderDetails() {
     && (
       <>
         <div
-          data-testid={
-            `seller_order_details__element-order-details-label-order-id-${paramsId}`
-          }
+          data-testid="seller_order_details__element-order-details-label-order-id"
         >
           <p>{ `Pedido ${paramsId}` }</p>
         </div>
         <h4
-          data-testid={
-            `seller_order_details__element-order-details-label-order-date-${paramsId}`
-          }
+          data-testid="seller_order_details__element-order-details-label-order-date"
         >
           { date }
         </h4>
         <h2
-          data-testid={ `
-      seller_order_details__element-order-details-label-delivery-status-${paramsId}
-      ` }
+          data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
           { status }
         </h2>
         <button
-          data-testid={ `
-        seller_order_details__element-order-details-label-delivery-status-${paramsId}
-        ` }
+          data-testid="seller_order_details__button-preparing-check"
           onClick={ () => changeStatus('Preparando') }
+          disabled={ status !== 'Pendente' }
           type="button"
         >
           PREPARAR PEDIDO
         </button>
         <button
-          data-testid={ `seller_order_details__button-dispatch-check-${paramsId}` }
+          data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => changeStatus('Em Trânsito') }
+          disabled={ status !== 'Preparando' }
           type="button"
         >
           SAIU PARA ENTREGA
