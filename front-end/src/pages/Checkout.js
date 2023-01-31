@@ -65,7 +65,6 @@ export default function Checkout() {
     getTotalPrice();
   }, [cart]);
 
-  console.log(seller);
   return (
     <main>
       <Navbar />

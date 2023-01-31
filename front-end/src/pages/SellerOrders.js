@@ -10,7 +10,6 @@ export default function SellerOrders() {
   useEffect(() => {
     const getSales = async () => {
       const { data } = await api.get('http://localhost:3001/sales');
-      console.log(data);
       const filter = data.filter((sale) => sale.sellerId === user.id);
       setSales(filter);
     };

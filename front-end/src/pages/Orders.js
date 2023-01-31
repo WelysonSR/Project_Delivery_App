@@ -9,7 +9,6 @@ export default function Orders() {
   useEffect(() => {
     const getSales = async () => {
       const { data } = await api.get('http://localhost:3001/sales');
-      console.log(data);
       setSales(data);
     };
     getSales();

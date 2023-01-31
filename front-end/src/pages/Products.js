@@ -32,7 +32,6 @@ function Products() {
       price: (+product.price),
       quantity: 0,
     }));
-    console.log(products);
     localStorage.setItem('carrinho', JSON.stringify(products));
     dispatch(checkoutRedux(products));
   };
