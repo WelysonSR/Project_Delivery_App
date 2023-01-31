@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { useDispatch } from 'react-redux';
@@ -35,6 +35,13 @@ function Login() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const userLogin = JSON.parse(localStorage.getItem('user'));
+    if (userLogin && userLogin?.role === 'customer') {
+      history.push('/customer/products');
+    }
+  }, []);
 
   return (
     <div>
