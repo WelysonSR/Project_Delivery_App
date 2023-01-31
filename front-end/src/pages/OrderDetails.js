@@ -20,7 +20,7 @@ export default function OrderDetails() {
   const deliveredSale = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     api.defaults.headers.common.Authorization = token;
-    const { data } = await api.patch(`/sales/${paramsId}`, { status: 'Entregue' });
+    const { data } = await api.patch(`http://localhost:3001/sales/${paramsId}`, { status: 'Entregue' });
     setDetails(data);
   };
 
