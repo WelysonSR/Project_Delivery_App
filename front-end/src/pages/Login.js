@@ -24,11 +24,14 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(data));
       dispatch(user(email));
       dispatch(reduxPswrd(password));
-      if (data.role !== 'customer') {
-        history.push('/seller/orders');
+      if (data.role === 'administrator') {
+        return history.push('/admin/manage');
       }
       if (data.role === 'customer') {
-        history.push('/customer/products');
+        return history.push('/customer/products');
+      }
+      if (data.role !== 'customer') {
+        return history.push('/seller/orders');
       }
     } catch (err) {
       setvalidate(true);

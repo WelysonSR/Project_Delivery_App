@@ -20,12 +20,12 @@ const login = async (email, password) => {
   };
 };
 
-const register = async (email, password, name) => {
+const register = async (email, password, name, newRole) => {
   validateRegister({ email, password, name });
   const userExist = await user.findOne({ where: { email } });
   if (userExist) throw new Error(errorsTypes.USER_EXIST);
   const hasPassword = md5(password);
-  const newUser = await user.create({ name, email, password: hasPassword, role: 'customer' });
+  const newUser = await user.create({ name, email, password: hasPassword, role: newRole });
   const token = generateToken(newUser);
   const { role, id } = newUser;
   return {

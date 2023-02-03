@@ -8,6 +8,7 @@ import Products from '../pages/Products';
 import OrderDetails from '../pages/OrderDetails';
 import SellerOrders from '../pages/SellerOrders';
 import SellerOrdersDetails from '../pages/SellerOrdersDetails';
+import Admin from '../pages/Admin';
 
 function Routes() {
   return (
@@ -27,6 +28,10 @@ function Routes() {
         <Route
           path="/register"
           component={ Register }
+        />
+        <Route
+          path="/admin/manage"
+          component={ Admin }
         />
         <Route
           path="/customer/orders/:id"

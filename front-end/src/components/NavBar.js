@@ -8,6 +8,7 @@ export default function NavBar() {
   const user = JSON.parse(localStorage.getItem('user'));
   const [linkOrders, setLinkOrders] = useState('/customer/orders');
   const dispatch = useDispatch();
+  const [admin, setAdmin] = useState('');
 
   const removeFromLocalStorage = () => {
     localStorage.removeItem('user');
@@ -22,28 +23,40 @@ export default function NavBar() {
     if (userLogin && userLogin?.role !== 'customer') {
       setLinkOrders('/seller/orders');
     }
+    setAdmin(userLogin.role);
   }, []);
 
   return (
     <nav>
-      <div>
-        <Link
-          to="/customer/products"
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          PRODUTOS
-        </Link>
-      </div>
+      {
+        admin === 'administrator' ? (
+          <div
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            GERENCIAR USUÁRIOS
+          </div>
+        ) : (
+          <div>
+            <div>
+              <Link
+                to="/customer/products"
+                data-testid="customer_products__element-navbar-link-products"
+              >
+                PRODUTOS
+              </Link>
+            </div>
 
-      <div>
-        <Link
-          to={ linkOrders }
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          MEUS PEDIDOS
-        </Link>
-      </div>
-
+            <div>
+              <Link
+                to={ linkOrders }
+                data-testid="customer_products__element-navbar-link-orders"
+              >
+                MEUS PEDIDOS
+              </Link>
+            </div>
+          </div>
+        )
+      }
       <div>
         <p
           data-testid="customer_products__element-navbar-user-full-name"
