@@ -15,7 +15,7 @@ export default function UserList() {
       }
     };
     gatuser();
-  });
+  }, []);
 
   const deleteUser = async (id) => {
     try {
@@ -64,7 +64,7 @@ export default function UserList() {
                 <td
                   data-testid={ `admin_manage__element-user-table-role-${user.id}` }
                 >
-                  {user.type}
+                  {user.role}
                 </td>
                 <td>
                   <button

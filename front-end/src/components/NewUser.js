@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as EmailValidator from 'email-validator';
+import axios from 'axios';
 
 export default function NewUser() {
   const [name, setName] = useState('');
