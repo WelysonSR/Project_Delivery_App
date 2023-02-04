@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from 'axios';
 import NavBar from '../../components/NavBar';
 import SellerOrdersCard from '../../components/SellerOrdersCard';
+import * as S from './styles';
 
 export default function SellerOrders() {
   const [sales, setSales] = useState([]);
@@ -17,28 +18,32 @@ export default function SellerOrders() {
   }, []);
 
   return (
-    <section>
+    <>
       <NavBar />
-      {
-        sales.map(({
-          id,
-          status,
-          saleDate,
-          totalPrice,
-          deliveryAddress,
-          deliveryNumber,
-        }) => (
-          <SellerOrdersCard
-            key={ id }
-            id={ id }
-            status={ status }
-            saleDate={ saleDate }
-            totalPrice={ totalPrice }
-            deliveryAddress={ deliveryAddress }
-            deliveryNumber={ deliveryNumber }
-          />
-        ))
-      }
-    </section>
+      <S.Main>
+        <S.OrdersCointainer>
+          {
+            sales.map(({
+              id,
+              status,
+              saleDate,
+              totalPrice,
+              deliveryAddress,
+              deliveryNumber,
+            }) => (
+              <SellerOrdersCard
+                key={ id }
+                id={ id }
+                status={ status }
+                saleDate={ saleDate }
+                totalPrice={ totalPrice }
+                deliveryAddress={ deliveryAddress }
+                deliveryNumber={ deliveryNumber }
+              />
+            ))
+          }
+        </S.OrdersCointainer>
+      </S.Main>
+    </>
   );
 }

@@ -7,6 +7,7 @@ import NavBar from '../../components/NavBar';
 import SellerOrdersCard from '../../components/SellerOrdersCard';
 // import OrderDetailTable from '../components/OrderDetailsTable';
 // import { Link } from 'react-router-dom';
+import * as S from './styles';
 
 export default function SellerOrderDetails() {
   const [details, setDetails] = useState(null);
@@ -39,110 +40,128 @@ export default function SellerOrderDetails() {
     setStatus(param);
   };
 
-  return (
-    <div>
-      <NavBar />
-      {!details && <p>Loading...</p>}
-      { details
-    && (
+  if (!details) {
+    return (
       <>
-        <div
-          data-testid="seller_order_details__element-order-details-label-order-id"
-        >
-          <p>{ `Pedido ${paramsId}` }</p>
-        </div>
-        <h4
-          data-testid="seller_order_details__element-order-details-label-order-date"
-        >
-          { date }
-        </h4>
-        <h2
-          data-testid="seller_order_details__element-order-details-label-delivery-status"
-        >
-          { status }
-        </h2>
-        <button
-          data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => changeStatus('Preparando') }
-          disabled={ status !== 'Pendente' }
-          type="button"
-        >
-          PREPARAR PEDIDO
-        </button>
-        <button
-          data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => changeStatus('Em Trânsito') }
-          disabled={ status !== 'Preparando' }
-          type="button"
-        >
-          SAIU PARA ENTREGA
-        </button>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            { details && details
-              .products.map(({ id, name, salesProduct, price }, index) => (
-                <tr key={ index }>
-                  <td
-                    data-testid={
-                      `seller_order_details__element-order-table-item-number-${index}`
-                    }
-                  >
-                    { id }
-                  </td>
-                  <td
-                    data-testid={
-                      `seller_order_details__element-order-table-name-${index}`
-                    }
-                  >
-                    { name }
-                  </td>
-                  <td
-                    data-testid={
-                      `seller_order_details__element-order-table-quantity-${index}`
-                    }
-                  >
-                    { salesProduct.quantity }
-                  </td>
-                  <td
-                    data-testid={
-                      `seller_order_details__element-order-table-unit-price-${index}`
-                    }
-                  >
-                    <span>R$ </span>
-                    { price.toString().replace('.', ',') }
-                  </td>
-                  <td
-                    data-testid={
-                      `seller_order_details__element-order-table-sub-total-${index}`
-                    }
-                  >
-                    <span>R$ </span>
-                    { (Number(price) * Number(salesProduct.quantity)).toFixed(2)
-                      .toString().replace('.', ',') }
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <span>TOTAL: R$ </span>
-        <span
-          data-testid="seller_order_details__element-order-total-price"
-        >
-          { details.totalPrice.toString().replace('.', ',') }
-        </span>
+        <NavBar />
+        <p>Loading...</p>
       </>
-    )}
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <NavBar />
+      <S.Main>
+        <S.CheckoutCointainer>
+          <section>
+            <h2>Detalhe do Pedido</h2>
+            <table className="grid gap-3 text-center table table-light table-sm rounded">
+              <thead className="table-danger">
+                <tr>
+                  <th className="col px-md-4">Item</th>
+                  <th className="col px-md-5">Descrição</th>
+                  <th className="col px-md-4">Qtd</th>
+                  <th className="col px-md-4">Unitário</th>
+                  <th className="col px-md-4">Total</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                { details && details
+                  .products.map(({ id, name, salesProduct, price }, index) => (
+                    <tr key={ index }>
+                      <td
+                        data-testid={
+                          `seller_order_details__element-order-table-item-number-${index}`
+                        }
+                      >
+                        { id }
+                      </td>
+                      <td
+                        data-testid={
+                          `seller_order_details__element-order-table-name-${index}`
+                        }
+                      >
+                        { name }
+                      </td>
+                      <td
+                        data-testid={
+                          `seller_order_details__element-order-table-quantity-${index}`
+                        }
+                      >
+                        { salesProduct.quantity }
+                      </td>
+                      <td
+                        data-testid={
+                          `seller_order_details__element-order-table-unit-price-${index}`
+                        }
+                      >
+                        <span>R$ </span>
+                        { price.toString().replace('.', ',') }
+                      </td>
+                      <td
+                        data-testid={
+                          `seller_order_details__element-order-table-sub-total-${index}`
+                        }
+                      >
+                        <span>R$ </span>
+                        { (Number(price) * Number(salesProduct.quantity)).toFixed(2)
+                          .toString().replace('.', ',') }
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <p
+              className="fs-4 fw-light"
+              data-testid="seller_order_details__element-order-total-price"
+            >
+              {`Total: R$ ${details.totalPrice.toString().replace('.', ',')}`}
+            </p>
+
+          </section>
+
+          <div
+            data-testid="seller_order_details__element-order-details-label-order-id"
+            className="mb-5 bg-body-tertiary rounded"
+          >
+            <p>{ `Pedido ${paramsId}` }</p>
+            <h4
+              data-testid="seller_order_details__element-order-details-label-order-date"
+            >
+              { date }
+            </h4>
+            <h2
+              data-testid="seller_or
+            der_details__element-order-details-label-delivery-status"
+            >
+              { status }
+            </h2>
+            <button
+              data-testid="seller_order_details__button-preparing-check"
+              onClick={ () => changeStatus('Preparando') }
+              disabled={ status !== 'Pendente' }
+              type="button"
+              className="btn btn-danger"
+            >
+              PREPARAR PEDIDO
+            </button>
+            <button
+              data-testid="seller_order_details__button-dispatch-check"
+              onClick={ () => changeStatus('Em Trânsito') }
+              disabled={ status !== 'Preparando' }
+              type="button"
+              className="btn btn-danger"
+              z
+            >
+              SAIU PARA ENTREGA
+            </button>
+          </div>
+
+        </S.CheckoutCointainer>
+      </S.Main>
+    </>
   );
 }
 

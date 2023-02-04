@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
+import * as S from './styles';
 
 export default function SellerOrdersCard({
   id,
@@ -19,24 +20,39 @@ export default function SellerOrdersCard({
   }, []);
 
   return (
-    <Link to={ `/seller/orders/${id}` }>
-      <div data-testid={ `seller_orders__element-order-id-${id}` }>
-        <p>Pedido</p>
-        { id }
-      </div>
-      <h2 data-testid={ `seller_orders__element-delivery-status-${id}` }>
-        { status }
-      </h2>
-      <h4 data-testid={ `seller_orders__element-order-date-${id}` }>
-        { date }
-      </h4>
-      <h4 data-testid={ `seller_orders__element-card-price-${id}` }>
-        { `R$ ${totalPrice.replace('.', ',')}`}
-      </h4>
-      <h4 data-testid={ `seller_orders__element-card-address-${id}` }>
-        { `${deliveryAddress}, ${deliveryNumber}` }
-      </h4>
-    </Link>
+    <S.OrderCard className="rounded shadow">
+      <Link to={ `/seller/orders/${id}` }>
+        <S.OrderDiv3>
+          <S.OrderDiv1>
+            <p
+              className="bg-light text-dark fs-3"
+              data-testid={ `seller_orders
+            __element-order-id-${id}` }
+            >
+              { `Pedido ${id}` }
+            </p>
+            <p
+              className="bg-success-subtle text-emphasis-success fs-4"
+              data-testid={ `seller_orders__element-delivery-status-${id}` }
+            >
+              { status }
+            </p>
+          </S.OrderDiv1>
+          <S.OrderDiv2 className="bg-danger-subtle text-emphasis-danger">
+
+            <p data-testid={ `seller_orders__element-order-date-${id}` }>
+              { date }
+            </p>
+            <p data-testid={ `seller_orders__element-card-price-${id}` }>
+              { `R$ ${totalPrice.replace('.', ',')}`}
+            </p>
+          </S.OrderDiv2>
+        </S.OrderDiv3>
+        <span data-testid={ `seller_orders__element-card-address-${id}` }>
+          { `Endereço: ${deliveryAddress}, ${deliveryNumber}` }
+        </span>
+      </Link>
+    </S.OrderCard>
   );
 }
 
