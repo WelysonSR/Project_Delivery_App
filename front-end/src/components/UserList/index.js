@@ -35,15 +35,18 @@ export default function UserList() {
 
   return (
     <div>
-      <h4>Lista de usuários</h4>
-      <table>
-        <thead>
+      <h4 className="fs-4 fw-light">
+        Lista de usuários
+
+      </h4>
+      <table className="grid gap-3 text-center table table-light table-sm rounded">
+        <thead className="table-danger">
           <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Tipo</th>
-            <th>Excluir</th>
+            <th className="col px-md-3">ID</th>
+            <th className="col px-md-3">Nome</th>
+            <th className="col px-md-3">Email</th>
+            <th className="col px-md-3">Tipo</th>
+            <th className="col px-md-3">Excluir</th>
           </tr>
         </thead>
         <tbody>
@@ -74,6 +77,7 @@ export default function UserList() {
                 </td>
                 <td>
                   <button
+                    className="btn btn-light border border-danger border-opacity-50"
                     type="button"
                     onClick={ () => deleteUser(user.id) }
                     data-testid={ `admin_manage__element-user-table-remove-${user.id}` }

@@ -28,7 +28,7 @@ export default function NavBar() {
     }
     setAdmin(userLogin.role);
   }, []);
-
+  const ten = 12;
   return (
     <S.Header className="p-2 mb-1 bg-danger-subtle text-emphasis-danger">
       <S.LoginInfo>
@@ -41,20 +41,20 @@ export default function NavBar() {
             data-testid="customer_products__element-navbar-user-full-name"
             className="fw-bolder"
           >
-            {user ? user.name : <Link to="/"> Faça Login!</Link>}
+            {user ? user.name
+              .substring(0, ten) : <Link to="/"> Faça Login!</Link>}
           </p>
         </section>
       </S.LoginInfo>
       <S.DivButtons>
         {
           admin === 'administrator' ? (
-            <button
+            <div
               data-testid="customer_products__element-navbar-link-orders"
-              type="button"
-              onClick={ () => history.push(linkOrders) }
+              className="btn btn-outline-danger"
             >
-              GERENCIAR USUÁRIOS
-            </button>
+              Gerenciar Usuários
+            </div>
           ) : (
             <>
               <button
