@@ -3,17 +3,16 @@ import styled from 'styled-components';
 export const Main = styled.div`
 display: flex;
 align-items: center;
-justify-content: center;
+justify-content: space-around;
 flex-direction: column;
 height: 100vh;
 `;
 
 export const CheckoutCointainer = styled.div`
-margin-top: 150px;
 display: flex;
 align-items: center;
-justify-content: center;
-gap: 40px;
+// justify-content: space-between;
+gap: 13rem;
 form {
     display: flex;
     flex-direction: column;
@@ -22,6 +21,12 @@ form {
     width: 40%;
     * {
         width: 100%
+    }
+}
+
+section {
+    p {
+        text-align: right;
     }
 }
 `;

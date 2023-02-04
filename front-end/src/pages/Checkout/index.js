@@ -71,12 +71,15 @@ export default function Checkout() {
       <Navbar />
       <S.Main>
         <S.CheckoutCointainer>
-          <div>
+          <section>
             <OrderTable />
-            <p data-testid="customer_checkout__element-order-total-price">
-              {totalPrice}
+            <p
+              className="fs-4 fw-light"
+              data-testid="customer_checkout__element-order-total-price"
+            >
+              {`Total: R$ ${totalPrice}`}
             </p>
-          </div>
+          </section>
           <form>
             <h4> Detalhes e Endereço para Entrega </h4>
             <label htmlFor="vendedora" className="form-label">

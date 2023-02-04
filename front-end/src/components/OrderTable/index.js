@@ -15,12 +15,12 @@ export default function OrderTable() {
 
   const columns = () => (
     <tr>
-      <th>Item</th>
-      <th>Descrição</th>
-      <th>Quantidade</th>
-      <th>Valor Unitário</th>
-      <th>Sub-total</th>
-      <th>Remover Item</th>
+      <th className="col px-md-3">Item</th>
+      <th className="col px-md-5">Descrição</th>
+      <th className="col px-md-3">Qtd</th>
+      <th className="col px-md-3">Unitário</th>
+      <th className="col px-md-3">Total</th>
+      <th className="col px-md-3">Remover</th>
     </tr>
   );
 
@@ -42,10 +42,7 @@ export default function OrderTable() {
     return newItem.toFixed(2);
   };
 
-  const convert = (value) => {
-    const item = `Total: ${value}`;
-    return item.replace('.', ',');
-  };
+  const convert = (value) => value.replace('.', ',');
 
   const rows = () => {
     if (cart.length !== 0 || cart.length !== undefined) {
@@ -64,6 +61,7 @@ export default function OrderTable() {
               data-testid={ `${tableRmv}${i}` }
               id={ e.id }
               onClick={ (event) => rmvItem(event.target.id) }
+              className="btn btn-light border border-danger border-opacity-50"
             >
               Remover
             </button>
@@ -76,9 +74,13 @@ export default function OrderTable() {
 
   return (
     <div>
-      <h4> Finalizar Pedido </h4>
-      <table>
-        <thead>
+      <h4
+        className="fs-4 fw-light"
+      >
+        Finalizar Pedido
+      </h4>
+      <table className="grid gap-3 text-center table table-light table-sm rounded">
+        <thead className="table-danger">
           { columns() }
         </thead>
         <tbody>
