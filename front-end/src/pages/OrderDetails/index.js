@@ -47,9 +47,9 @@ export default function OrderDetails() {
     <>
       <NavBar />
       <S.Main>
-        <h2>Detalhe do Pedido</h2>
         <S.CheckoutCointainer>
           <section>
+            <h2>Detalhe do Pedido</h2>
             <OrderDatailTable products={ products } />
             <p
               className="fs-4 fw-light"

@@ -4,9 +4,9 @@ export const Main = styled.div`
 display: flex;
 align-items: center;
 margin-top: 120px;
-// justify-content: space-around;
+justify-content: space-around;
 flex-direction: column;
-height: 80vh;
+min-height: 80vh;
 gap: 10rem;
 `;
 

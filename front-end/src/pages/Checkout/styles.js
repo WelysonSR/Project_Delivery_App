@@ -5,7 +5,8 @@ display: flex;
 align-items: center;
 justify-content: space-around;
 flex-direction: column;
-height: 100vh;
+min-height: 80vh;
+margin-top: 120px;
 `;
 
 export const CheckoutCointainer = styled.div`
