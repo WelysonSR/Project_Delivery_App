@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 
 export default function OrderDetailTable({ products }) {
   return (
-    <table>
-      <thead>
+    <table className="grid gap-3 text-center table table-light table-sm rounded">
+      <thead className="table-danger">
         <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
+          <th className="col px-md-3">Item</th>
+          <th className="col px-md-5">Descrição</th>
+          <th className="col px-md-3">Qtd</th>
+          <th className="col px-md-3">Unitário</th>
+          <th className="col px-md-3">Total</th>
         </tr>
       </thead>
 
       <tbody>
-        { products.map(({ id, name, quantity, price }, index) => (
+        { products.map(({ id, name, salesProduct, price }, index) => (
           <tr key={ name }>
             <td
               data-testid={
@@ -36,7 +36,7 @@ export default function OrderDetailTable({ products }) {
                 `customer_order_details__element-order-table-quantity-${index}`
               }
             >
-              { quantity }
+              { salesProduct.quantity }
             </td>
             <td
               data-testid={
@@ -50,7 +50,7 @@ export default function OrderDetailTable({ products }) {
                 `customer_order_details__element-order-table-sub-total-${index}`
               }
             >
-              { (price * quantity).toFixed(2) }
+              { (Number(price) * salesProduct.quantity).toFixed(2) }
             </td>
           </tr>
         ))}
