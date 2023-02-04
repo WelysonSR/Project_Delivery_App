@@ -12,53 +12,51 @@ import Admin from '../pages/Admin';
 
 function Routes() {
   return (
-    <div className="meals">
-      <Switch>
-        <Route
-          exact
-          path="/"
-        >
-          <Redirect to="login" />
-        </Route>
+    <Switch>
+      <Route
+        exact
+        path="/"
+      >
+        <Redirect to="login" />
+      </Route>
 
-        <Route
-          path="/login"
-          render={ (props) => <Login { ...props } /> }
-        />
-        <Route
-          path="/register"
-          component={ Register }
-        />
-        <Route
-          path="/admin/manage"
-          component={ Admin }
-        />
-        <Route
-          path="/customer/orders/:id"
-          component={ OrderDetails }
-        />
-        <Route
-          path="/customer/orders"
-          component={ Orders }
-        />
-        <Route
-          path="/customer/checkout"
-          component={ Checkout }
-        />
-        <Route
-          path="/customer/products"
-          component={ Products }
-        />
-        <Route
-          path="/seller/orders/:id"
-          component={ SellerOrdersDetails }
-        />
-        <Route
-          path="/seller/orders/"
-          component={ SellerOrders }
-        />
-      </Switch>
-    </div>
+      <Route
+        path="/login"
+        render={ (props) => <Login { ...props } /> }
+      />
+      <Route
+        path="/register"
+        component={ Register }
+      />
+      <Route
+        path="/admin/manage"
+        component={ Admin }
+      />
+      <Route
+        path="/customer/orders/:id"
+        component={ OrderDetails }
+      />
+      <Route
+        path="/customer/orders"
+        component={ Orders }
+      />
+      <Route
+        path="/customer/checkout"
+        component={ Checkout }
+      />
+      <Route
+        path="/customer/products"
+        component={ Products }
+      />
+      <Route
+        path="/seller/orders/:id"
+        component={ SellerOrdersDetails }
+      />
+      <Route
+        path="/seller/orders/"
+        component={ SellerOrders }
+      />
+    </Switch>
   );
 }
 

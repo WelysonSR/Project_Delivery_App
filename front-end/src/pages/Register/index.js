@@ -78,7 +78,6 @@ export default function Register() {
             data-testid="common_register__input-password"
             value={ password }
             className="form-control"
-
             onChange={ ({ target }) => setPassword(target.value) }
           />
         </label>
