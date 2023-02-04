@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function UserList() {
   const [api, setApi] = useState([]);
+
+  const newUser = useSelector(({ login }) => login.users);
 
   useEffect(() => {
     const gatuser = async () => {
@@ -15,7 +18,10 @@ export default function UserList() {
       }
     };
     gatuser();
-  }, []);
+    if (api.length < newUser.length) {
+      setApi(newUser);
+    }
+  }, [newUser]);
 
   const deleteUser = async (id) => {
     try {
@@ -42,7 +48,7 @@ export default function UserList() {
         </thead>
         <tbody>
           {
-            api.map((user) => (
+            api.filter((user) => user.role !== 'administrator').map((user) => (
               <tr key={ user.id }>
                 <td
                   data-testid={
@@ -52,7 +58,7 @@ export default function UserList() {
                   {user.id}
                 </td>
                 <td
-                  data-testid="admin_manage__input-email"
+                  data-testid={ `admin_manage__element-user-table-name-${user.id}` }
                 >
                   {user.name}
                 </td>

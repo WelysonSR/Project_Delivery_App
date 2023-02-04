@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as EmailValidator from 'email-validator';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { users as userRedux } from '../redux/reducer/login';
 
 export default function NewUser() {
   const [name, setName] = useState('');
@@ -10,6 +12,9 @@ export default function NewUser() {
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [validate, setvalidate] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
+  const [counter, setCounter] = useState(0);
+
+  const dispatch = useDispatch();
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -17,16 +22,24 @@ export default function NewUser() {
     const register = { name, email, password, role };
 
     try {
-      const { data } = await axios.post(URL, register, {
+      await axios.post(URL, register, {
         headers: {
           Authorization: user.token,
         },
       });
-      console.log(data);
+      setCounter(counter + 1);
     } catch (err) {
       setvalidate(true);
     }
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await axios.get('http://localhost:3001/user');
+      dispatch(userRedux(data));
+    };
+    getUser();
+  }, [counter]);
 
   useEffect(() => {
     const validation = () => {

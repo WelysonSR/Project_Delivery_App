@@ -5,6 +5,7 @@ const slice = createSlice({
   initialState: {
     email: '',
     password: '',
+    users: [],
   },
 
   reducers: {
@@ -20,9 +21,14 @@ const slice = createSlice({
         password: password.payload,
       };
     },
+    users(_state, user) {
+      return {
+        users: user.payload,
+      };
+    },
   },
 });
 
-export const { password, user } = slice.actions;
+export const { password, user, users } = slice.actions;
 
 export default slice.reducer;
