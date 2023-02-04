@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Navbar from '../../components/NavBar';
 import OrderTable from '../../components/OrderTable';
+import * as S from './styles';
 
 export default function Checkout() {
   const [seller, setSeller] = useState([]);
@@ -66,68 +67,74 @@ export default function Checkout() {
   }, [cart]);
 
   return (
-    <main>
+    <>
       <Navbar />
-      <OrderTable />
-      <form>
-        <p data-testid="customer_checkout__element-order-total-price">
-          {totalPrice}
-        </p>
-
-        <h4> Detalhes e Endereço para Entrega </h4>
-
-        <label htmlFor="vendedora">
-          P. Vendedora Responsável:
-          <select
-            id="vendedora"
-            data-testid="customer_checkout__select-seller"
-            onChange={ ({ target }) => setSeller(target.value) }
-            value={ api[0] }
-          >
-            { api.map((e, index) => (
-              <option
-                key={ index }
-                value={ e }
+      <S.Main>
+        <S.CheckoutCointainer>
+          <div>
+            <OrderTable />
+            <p data-testid="customer_checkout__element-order-total-price">
+              {totalPrice}
+            </p>
+          </div>
+          <form>
+            <h4> Detalhes e Endereço para Entrega </h4>
+            <label htmlFor="vendedora" className="form-label">
+              P. Vendedora Responsável:
+              <select
+                id="vendedora"
+                className="form-select"
+                data-testid="customer_checkout__select-seller"
+                onChange={ ({ target }) => setSeller(target.value) }
+                value={ api[0] }
               >
-                {e.name}
-              </option>
-            ))}
-            ;
-          </select>
-        </label>
+                { api.map((e, index) => (
+                  <option
+                    key={ index }
+                    value={ e }
+                  >
+                    {e.name}
+                  </option>
+                ))}
+                ;
+              </select>
+            </label>
+            <label htmlFor="endereço" className="form-label">
+              Endereço:
+              <input
+                className="form-control"
+                type="text"
+                id="endereço"
+                placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
+                data-testid="customer_checkout__input-address"
+                value={ address }
+                onChange={ ({ target }) => setAddress(target.value) }
+              />
+            </label>
 
-        <label htmlFor="endereço">
-          Endereço:
-          <input
-            type="text"
-            id="endereço"
-            placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
-            data-testid="customer_checkout__input-address"
-            value={ address }
-            onChange={ ({ target }) => setAddress(target.value) }
-          />
-        </label>
-
-        <label htmlFor="address">
-          Número:
-          <input
-            type="text"
-            id="address"
-            placeholder="198"
-            data-testid="customer_checkout__input-address-number"
-            onChange={ ({ target }) => setNumber(target.value) }
-            value={ number }
-          />
-        </label>
-
-        <button
-          type="button"
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ postAxios }
-        >
-          FINALIZAR PEDIDO
-        </button>
-      </form>
-    </main>
+            <label htmlFor="address" className="form-label">
+              Número:
+              <input
+                className="form-control"
+                type="text"
+                id="address"
+                placeholder="198"
+                data-testid="customer_checkout__input-address-number"
+                onChange={ ({ target }) => setNumber(target.value) }
+                value={ number }
+              />
+            </label>
+            <button
+              type="button"
+              data-testid="customer_checkout__button-submit-order"
+              onClick={ postAxios }
+              className="btn btn-outline-success"
+            >
+              FINALIZAR PEDIDO
+            </button>
+          </form>
+        </S.CheckoutCointainer>
+      </S.Main>
+    </>
   );
 }
