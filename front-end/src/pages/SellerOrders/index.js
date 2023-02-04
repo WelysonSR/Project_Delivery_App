@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from 'axios';
-import NavBar from '../components/NavBar';
-import SellerOrdersCard from '../components/SellerOrdersCard';
+import NavBar from '../../components/NavBar';
+import SellerOrdersCard from '../../components/SellerOrdersCard';
 
 export default function SellerOrders() {
   const [sales, setSales] = useState([]);

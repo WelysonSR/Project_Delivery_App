@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkout as checkoutRedux } from '../redux/reducer/products';
+import { checkout as checkoutRedux } from '../../redux/reducer/products';
 
 const tableNumber = 'customer_checkout__element-order-table-item-number-';
 const tableName = 'customer_checkout__element-order-table-name-';

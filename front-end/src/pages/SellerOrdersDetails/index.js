@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
-import NavBar from '../components/NavBar';
-import SellerOrdersCard from '../components/SellerOrdersCard';
+import NavBar from '../../components/NavBar';
+import SellerOrdersCard from '../../components/SellerOrdersCard';
 // import OrderDetailTable from '../components/OrderDetailsTable';
 // import { Link } from 'react-router-dom';
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import Navbar from '../components/NavBar';
-import OrderTable from '../components/OrderTable';
+import Navbar from '../../components/NavBar';
+import OrderTable from '../../components/OrderTable';
 
 export default function Checkout() {
   const [seller, setSeller] = useState([]);

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { checkout as checkoutRedux } from '../redux/reducer/products';
-import NavBar from '../components/NavBar';
+import { checkout as checkoutRedux } from '../../redux/reducer/products';
+import NavBar from '../../components/NavBar';
 
 function Products() {
   const [api, setApi] = useState([]);

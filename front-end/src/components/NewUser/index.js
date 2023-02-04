@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as EmailValidator from 'email-validator';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { users as userRedux } from '../redux/reducer/login';
+import { users as userRedux } from '../../redux/reducer/login';
 
 export default function NewUser() {
   const [name, setName] = useState('');
