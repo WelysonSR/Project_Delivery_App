@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
+import * as S from './styles';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -39,9 +40,9 @@ export default function Register() {
   };
 
   return (
-    <main>
-      <form>
-        <h2>Cadastro</h2>
+    <S.Main>
+      <S.Container className="shadow p-3 mb-5 bg-body-tertiary rounded">
+        <h1 className="fs-1 fw-lighter">Cadastro</h1>
         <label htmlFor="name">
           Nome
           <input
@@ -50,6 +51,7 @@ export default function Register() {
             placeholder="Seu nome"
             data-testid="common_register__input-name"
             value={ name }
+            className="form-control"
             onChange={ ({ target }) => setName(target.value) }
           />
         </label>
@@ -62,6 +64,7 @@ export default function Register() {
             placeholder="seu-email@site.com.br"
             data-testid="common_register__input-email"
             value={ email }
+            className="form-control"
             onChange={ ({ target }) => setEmail(target.value) }
           />
         </label>
@@ -74,6 +77,8 @@ export default function Register() {
             placeholder="**********"
             data-testid="common_register__input-password"
             value={ password }
+            className="form-control"
+
             onChange={ ({ target }) => setPassword(target.value) }
           />
         </label>
@@ -83,6 +88,7 @@ export default function Register() {
           data-testid="common_register__button-register"
           disabled={ !disabledBtn }
           onClick={ handleClick }
+          className="btn btn-danger"
 
         >
           CADASTRAR
@@ -93,7 +99,7 @@ export default function Register() {
             Já existe este cadastro
           </p>
         ) }
-      </form>
-    </main>
+      </S.Container>
+    </S.Main>
   );
 }

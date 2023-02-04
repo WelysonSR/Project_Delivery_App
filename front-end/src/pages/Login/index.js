@@ -61,7 +61,7 @@ function Login() {
           className="form-control"
         />
         <input
-          type="text"
+          type="password"
           data-testid="common_login__input-password"
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
