@@ -23,8 +23,19 @@ const getAllUser = async (_req, res) => {
   }
 };
 
+const deliteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const list = await userService.deliteUser(id);
+    res.status(statusHttp.OK).json(list);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+}
+
 module.exports = {
   login,
   register,
   getAllUser,
+  deliteUser,
 };
